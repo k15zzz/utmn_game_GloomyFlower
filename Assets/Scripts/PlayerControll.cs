@@ -29,25 +29,18 @@ public class PlayerControll : MonoBehaviour
     private void FixedUpdate()
     { 
         moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
-        if (facingRight==false && moveInput > 0)
+        var velocity = new Vector2(moveInput * speed, rb.velocity.y);
+
+        if (rb.velocity != velocity) rb.velocity = velocity;
+        
+
+        if ((!facingRight && moveInput > 0) || (facingRight && moveInput < 0))
         {
             Flip();
         }
-        else if(facingRight==true && moveInput < 0)
-        {
-            Flip();
-        }
 
-        if (moveInput==0)
-        {
-            _animator.SetBool("isRun", false);
-        }
-        else
-        {
-            _animator.SetBool("isRun", true);
-        }
+        _animator.SetBool("isRun", moveInput!=0);
     }
 
     private void Update() 
@@ -59,15 +52,8 @@ public class PlayerControll : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
             _animator.SetTrigger("takeOf");
         }
-
-        if (isGrounded==true)
-        {
-            _animator.SetBool("isJump", false);
-        }
-        else
-        {
-            _animator.SetBool("isJump", true);
-        }
+        
+        _animator.SetBool("isJump", !isGrounded);
     }
 
     void Flip()
@@ -76,14 +62,5 @@ public class PlayerControll : MonoBehaviour
         var scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;
-
-        // if (moveInput<0)
-        // {
-        //     transform.eulerAngles = new Vector3(0, 180, 0);
-        // }
-        // else if (moveInput>0)
-        // {
-        //     transform.eulerAngles = new Vector3(0, 0, 0);
-        // }
     }
 }
