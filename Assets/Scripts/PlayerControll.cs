@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class PlayerControll : MonoBehaviour
@@ -13,12 +14,17 @@ public class PlayerControll : MonoBehaviour
 
     private bool facingRight = true;  
 
-    private bool isGrounded;  
+    private bool isGrounded;
+    private bool isJump = false;
+    [SerializeField] float jumpTime;
+    private float jumpCouner;
     public Transform feetPos;
     public float checkRadius;
     public LayerMask whatIsGround;
 
     private Animator _animator;
+
+    private bool checkWord;
     
     private void Start()
     {
@@ -46,11 +52,21 @@ public class PlayerControll : MonoBehaviour
     private void Update() 
     {
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
-        
-        if (isGrounded && Input.GetKeyDown(KeyCode.W))
+
+        if (isGrounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))) 
         {
             rb.velocity = Vector2.up * jumpForce;
             _animator.SetTrigger("takeOf");
+            isJump = true;
+            jumpCouner = 0;
+        }
+
+        if (rb.velocity.y > 0 && isJump)
+        {
+            jumpCouner += Time.deltaTime;
+            if (jumpCouner > jumpTime) isJump = false;
+            
+            rb.velocity += Vector2.up * (jumpForce * Time.deltaTime);
         }
         
         _animator.SetBool("isJump", !isGrounded);
