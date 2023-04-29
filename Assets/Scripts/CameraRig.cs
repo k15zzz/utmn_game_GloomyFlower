@@ -6,18 +6,24 @@ public class CameraRig : MonoBehaviour
 {
     public float damping = 1.5f;
     public Transform player;
-
     private Vector2 offset;
     private int lastX;
     private bool faceLeft;
-
-    void Start ()
+    
+    public void FindPlayer(bool playerFaceLeft)
     {
-        offset = new Vector2(Mathf.Abs(offset.x), offset.y);
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        lastX = Mathf.RoundToInt(player.position.x);
+        var target = playerFaceLeft ? 
+            new Vector3(player.position.x - offset.x, player.position.y + offset.y, transform.position.z) : 
+            new Vector3(player.position.x + offset.x, player.position.y + offset.y, transform.position.z);
     }
-
+    
     void Update () 
     {
+        offset = new Vector2(Mathf.Abs(offset.x), offset.y);
+        FindPlayer(faceLeft);
+        
         int currentX = Mathf.RoundToInt(player.position.x);
         
         faceLeft = !(currentX > lastX);
