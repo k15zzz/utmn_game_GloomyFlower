@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
-    private bool hasEntered;
-    
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Input.GetKeyDown(KeyCode.R) && !hasEntered)
+        if (other.gameObject.tag == "Player")
         {
-            Invoke("Die", 1f);
+            other.gameObject.GetComponent<PlayerControll>().Die();
         }
-    }
-
-    void Die()
-    {
-        Destroy(gameObject);
-        LevelManager.instance.Respawn();
     }
 }
