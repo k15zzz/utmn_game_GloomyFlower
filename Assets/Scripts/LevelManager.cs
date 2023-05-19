@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
-    public Transform respawnPoint;
+    public static Transform respawnPoint;
     public GameObject playerPrefab;
 
     private void Awake()
