@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
         {
-            LevelManager.instance.respawnPoint.position = transform.position;
+            LevelManager.respawnPoint.position = transform.position;
         }
     }
 }
