@@ -758,6 +758,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2770293523833491019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,13 +801,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  jumpForce: 10
-  jumpTime: 0
+  jumpForce: 6
+  jumpTime: 0.6
   feetPos: {fileID: 2770293523499710326}
   checkRadius: 0.3
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
 --- !u!114 &1676532883152957653
 MonoBehaviour:
   m_ObjectHideFlags: 0

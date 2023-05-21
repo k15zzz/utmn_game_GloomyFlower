@@ -61,14 +61,22 @@ public class PlayerControll : MonoBehaviour
             jumpCouner = 0;
         }
 
-        if (rb.velocity.y > 0 && isJump)
+        //Увеличение времени прыжка при зажатие кнопки
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            jumpCouner += Time.deltaTime;
-            if (jumpCouner > jumpTime) isJump = false;
-            
-            rb.velocity += Vector2.up * (jumpForce * Time.deltaTime);
+            if (rb.velocity.y > 0 && isJump)
+            {
+                jumpCouner += Time.deltaTime;
+                if (jumpCouner > jumpTime) isJump = false;
+
+                rb.velocity += Vector2.up * (jumpForce * Time.deltaTime);
+            }
         }
-        
+        else if (rb.velocity.y > 0 && isJump)
+        {
+            jumpCouner = jumpTime;
+        }
+
         _animator.SetBool("isJump", !isGrounded);
     }
 
