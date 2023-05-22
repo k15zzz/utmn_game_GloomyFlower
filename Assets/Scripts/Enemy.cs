@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     public float jumpHeight = 1f; // Высота прыжка врага
     public LayerMask groundLayer; // Слой земли
     public Transform groundCheck; // Точка проверки земли
-    public Transform playerCheck; // Точка проверки персонажа
     public float playerCheckRadius = 5f; // Радиус проверки персонажа
     public float groundCheckRadius = 0.1f; // Радиус проверки земли
 
@@ -69,7 +68,9 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (Physics2D.OverlapCircle(playerCheck.position, playerCheckRadius, groundLayer)) // Если персонаж находится в зоне действия триггера врага
+        player = GameObject.FindGameObjectWithTag("Player").transform; // Получаем трансформ персонажа
+        
+        if (Physics2D.OverlapCircle(player.position, playerCheckRadius, groundLayer)) // Если персонаж находится в зоне действия триггера врага
         {
             isChasing = true; // Враг начинает преследование
         }
