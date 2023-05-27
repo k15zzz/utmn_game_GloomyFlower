@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
 
     public void Respawn()
     {
-        player.transform.position = currentCheckpoint.transform.position;
+        //SceneManager.LoadScene("MainScene");
+        player.transform.position = SpawnPoint.spawnPoint.position;
     }
 }

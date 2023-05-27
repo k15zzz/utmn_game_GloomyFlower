@@ -16,6 +16,7 @@ public class Checkpoint : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             levelManager.currentCheckpoint = gameObject;
+            SpawnPoint.spawnPoint.position = levelManager.currentCheckpoint.transform.position;
         }
     }
 }
