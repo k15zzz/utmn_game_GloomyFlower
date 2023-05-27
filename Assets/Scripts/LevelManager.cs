@@ -5,19 +5,16 @@ using Cinemachine;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager instance;
-    public CinemachineVirtualCameraBase cam;
-    public Transform respawnPoint;
-    public GameObject playerPrefab;
+    public GameObject currentCheckpoint;
+    public PlayerControll player;
 
-    private void Awake()
+    void Start()
     {
-        instance = this;
+        player = FindObjectOfType<PlayerControll>();
     }
 
     public void Respawn()
     {
-        GameObject player = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
-        cam.Follow = player.transform;
+        player.transform.position = currentCheckpoint.transform.position;
     }
 }
