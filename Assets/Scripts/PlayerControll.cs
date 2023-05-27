@@ -87,10 +87,4 @@ public class PlayerControll : MonoBehaviour
         scaler.x *= -1;
         transform.localScale = scaler;
     }
-    
-    public void Die()
-    {
-        Destroy(gameObject);
-        LevelManager.instance.Respawn();
-    }
 }

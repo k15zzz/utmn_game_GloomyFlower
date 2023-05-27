@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
+    public LevelManager levelManager;
+    
+    void Start()
+    {
+        levelManager = FindObjectOfType<LevelManager>();
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerControll>().Die();
+            levelManager.Respawn();
         }
     }
 }
